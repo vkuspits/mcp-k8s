@@ -1,0 +1,35 @@
+classes:
+- system.linux.system.repo.docker
+- system.linux.system.repo.ubuntu
+- system.linux.system.repo.mcp.extra
+- system.linux.system.repo.saltstack.xenial
+- system.kubernetes.pool.cluster
+- system.salt.minion.cert.k8s_client
+- system.salt.minion.cert.etcd_client
+- cluster.k8s.infra
+parameters:
+  _param:
+    kubernetes_calicoctl_image: artifactory.mirantis.com/docker-prod-local/mirantis/projectcalico/calico/ctl:latest
+    kubernetes_calico_image: artifactory.mirantis.com/docker-prod-local/mirantis/projectcalico/calico/node:latest
+    kubernetes_calico_cni_image: artifactory.mirantis.com/docker-prod-local/mirantis/projectcalico/calico/cni:latest
+    kubernetes_hyperkube_image: artifactory.mirantis.com/docker-prod-local/mirantis/kubernetes/hyperkube-amd64:v1.4.6-6
+  docker:
+    host:
+      pkgs:
+        - docker-engine=1.12.6-0~ubuntu-xenial
+        - python-docker
+  kubernetes:
+    pool:
+      network:
+        no_default_pools: false
+        etcd:
+          ssl:
+            enabled: True
+        image: ${_param:kubernetes_calico_image}
+        calicoctl:
+          image: ${_param:kubernetes_calicoctl_image}
+        cni:
+          image: ${_param:kubernetes_calico_cni_image}
+    common:
+      hyperkube:
+        image: ${_param:kubernetes_hyperkube_image}

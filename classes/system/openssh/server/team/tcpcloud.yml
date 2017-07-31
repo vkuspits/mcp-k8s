@@ -1,0 +1,65 @@
+classes:
+- system.openssh.server.team.members.akomarek
+- system.openssh.server.team.members.atengler
+- system.openssh.server.team.members.dcech
+- system.openssh.server.team.members.fpytloun
+- system.openssh.server.team.members.jbroulik
+- system.openssh.server.team.members.jcach
+- system.openssh.server.team.members.jjosef
+- system.openssh.server.team.members.jpavlik
+- system.openssh.server.team.members.lmercl
+- system.openssh.server.team.members.mceloud
+- system.openssh.server.team.members.mpolreich
+- system.openssh.server.team.members.osmola
+- system.openssh.server.team.members.pcizinsky
+- system.openssh.server.team.members.pjediny
+- system.openssh.server.team.members.pmichalec
+- system.openssh.server.team.members.rfelkl
+- system.openssh.server.team.members.skreys
+- system.openssh.server.team.members.smatov
+- system.openssh.server.team.members.tkukral
+- system.openssh.server.team.members.vmikes
+
+parameters:
+  linux:
+    system:
+      user:
+        root:
+          enabled: true
+          name: root
+          home: /root
+        askotnicky:
+          enabled: true
+          name: askotnicky
+          sudo: true
+          full_name: Adam Skotnicky
+          home: /home/askotnicky
+        vzach:
+          enabled: true
+          name: vzach
+          sudo: true
+          full_name: Vlastimil Zach
+          home: /home/vzach
+      group:
+        libvirtd:
+          enabled: true
+          name: libvirtd
+  openssh:
+    server:
+      enabled: true
+      user:
+        askotnicky:
+          enabled: true
+          public_keys:
+          - ${public_keys:askotnicky}
+          user: ${linux:system:user:askotnicky}
+        vzach:
+          enabled: true
+          public_keys:
+          - ${public_keys:vzach}
+          user: ${linux:system:user:vzach}
+  public_keys:
+    askotnicky:
+      key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDO6EnDYaGdF/Nn6lntxDNnKanCsheZRdh8kA/6ImyeRSjT2cgepm1Fsgv7wXBYoy0OxhB5wgCp5Az/Pj4oLkG3g+G05sUPUxxGCGRiwjcnyQ/FTz4TzHglAVqgbdgWoQYf9Hg6EKZovvPcH3STbEwcl+MhLqvxz0wm5+StE+wvp6I9dEfRV+2/e1uepauOTZ1+Ui1DMNXiMefTlbiIBHzUk7RiwJWgqzQXBndgunmbJWSed8zC0Ug97waDOFIX/oKZmAmsv0NLJ2e/kC3oUTuziGT74F9sh7Pqiw/9HZxvP45hJwEvytfUjfuiikIBbmYdF7Je93czaG/qjXGN8YvP== a.skotnicky@tcpisek.cz
+    vzach:
+      key: AAAAB3NzaC1yc2EAAAABJQAAAQEAn4MJUkXbiZPPEcdKijB4MqnjPGk80x5W+8XsMvZuUqElmuLgB30kdCnSCBgipYPor3m8wakdJTTwiY6P50yhtp/tD2b4t1TC1djPwiNS/6JwjZawj30bS5ZrVKeTHtOq6E0tf927svXgEE21/ADgWpMoDeQ/pKlbt0m/U8YGBCmJ7cBa8ggGHhvJIwCNhpELn02vKV8Qfx44rk+DoxLBwQUHQ8PsEwtoSCLMIulpLflptak1pgvN6ggA5p15i36OyJkobI1yR9YEgtb+8yQqofu2DZ+v+9Qhbb+C0446RnyGzfvk/DreCeI4rJh5/6QZjwv3XfYDER5LbNCnoOQAsQ== v.zach@tcpcloud.eu

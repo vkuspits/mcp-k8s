@@ -1,0 +1,8 @@
+classes:
+- service.glance.control.single
+parameters:
+  glance:
+    server:
+      database:
+        host: ${_param:single_address}
+      show_multiple_locations: True
